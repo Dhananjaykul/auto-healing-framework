@@ -3,26 +3,59 @@ name: Generate ASCII Artwork
 on:
     push
 jobs: 
-    ascii_job:
+    build_job_1:
         runs-on: ubuntu-latest
-        steps:
-            - name: Checkout Repo
-              uses: actions/checkout@v4
+        steps: 
+            - name: Install Cowsay Program
+              run: sudo apt-get install cowsay -y 
+           
+            - name: Execute Cowsay CMD 
+              run: cowsay -f dragon "Run for cover, I am Dragon" >> dragon.txt
             
-            - name: Executing shell Script
-              run: | 
-                chmod +x ascii-script.sh      
-                ./ascii-script.sh
+            - name: Sleep for 30 seconds
+              run: sleep 30
               
-            # - name: Install Cowsay Program
-            #   run: sudo apt-get install cowsay -y
+    test_job_2:
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Sleep for 10 seconds
+              run: sleep 10
             
-            # - name: Execute Cowsay CMD 
-            #   run: cowsay -f dragon "Run for cover, I am Dragon" >> dragon.txt
+            - name: Test File Exist
+              run: grep -i "dragon" dragon.txt
             
-            # - name: Test File Exist 
-            #   run: grep -i "dragon" dragon.txt
+    delpoy_job_3:
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Read File
+              run: cat dragon.txt
+            - name: Deploy
+              run: echo Deploying....
             
-            # - name: Read File
-            #   run: cat dragon.txt
+
+
+    # ascii_job:
+    #     runs-on: ubuntu-latest
+    #     steps:
+
+    #         ################# Runs with Shelll Scripting ###################
+    #         - name: Checkout Repo
+    #           uses: actions/checkout@v4
+            
+    #         - name: Executing shell Script
+    #           run: | 
+    #             chmod +x ascii-script.sh      
+    #             ./ascii-script.sh
+    #        #########################################################   
+    #         # - name: Install Cowsay Program
+    #         #   run: sudo apt-get install cowsay -y
+            
+    #         # - name: Execute Cowsay CMD 
+    #         #   run: cowsay -f dragon "Run for cover, I am Dragon" >> dragon.txt
+            
+    #         # - name: Test File Exist 
+    #         #   run: grep -i "dragon" dragon.txt
+            
+    #         # - name: Read File
+    #         #   run: cat dragon.txt
 
